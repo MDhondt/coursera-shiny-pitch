@@ -1,0 +1,54 @@
+Shiny Application and Reproducible Pitch
+========================================================
+author: Maarten Dhondt
+date: 28/06/2020
+autosize: true
+
+Shiny app pitch
+========================================================
+
+
+Fitting linear Models
+========================================================
+
+* 100 random points are plotted
+* with use of lm function a line is fitted through the points
+* the number of degrees of the fitted polynomial can be adjusted
+
+App starts with polynomial of degree 3
+========================================================
+
+```{r, echo=FALSE}
+library(ggplot2)
+
+set.seed(12345)
+data <- matrix(rnorm(200,mean=5,sd=2),ncol=2)
+colnames(data) <- c("x","y")
+df <- as.data.frame(data)
+df$y <- df$y / 3
+
+qplot(df$x,df$y) + 
+  stat_smooth(method="lm", se=TRUE, fill=NA, formula=y ~ poly(x, 3, raw=TRUE), colour="red") +
+  xlim(0,10) +
+  ylim(0,4) +
+  theme_void()
+```
+
+But can go up to 15
+========================================================
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+set.seed(12345)
+data <- matrix(rnorm(200,mean=5,sd=2),ncol=2)
+colnames(data) <- c("x","y")
+df <- as.data.frame(data)
+df$y <- df$y / 3
+
+qplot(df$x,df$y) + 
+  stat_smooth(method="lm", se=TRUE, fill=NA, formula=y ~ poly(x, 15, raw=TRUE), colour="red") +
+  xlim(0,10) +
+  ylim(0,4) +
+  theme_void()
+```
